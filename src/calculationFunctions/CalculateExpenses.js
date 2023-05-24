@@ -1,18 +1,17 @@
-
-export default function CalculateExpenses(data){ 
-    let totalExpenses = 0.00;
-    let categories = [...new Set(data.map(item => item.Category))];
-    let categoryExpenses = categories.reduce((dict, key) => {
-        dict[key] = 0.00;
-        return dict;
-      }, {});
-    data.forEach(row => {
-        let expense = Number(row.Debit);
-        if(expense > 0){
-            categoryExpenses[row.Category] += expense;
-            totalExpenses += expense;
-        }
+export default function CalculateExpenses(files) {
+  let totalExpenses = 0.0;
+  let categoryExpenses = {};
+  files.forEach((file) => {
+    file.data.forEach((row) => {
+      let expense = Number(row.Debit);
+      if (Number(expense)) {
+        categoryExpenses[row.Category] =
+          (categoryExpenses[row.Category] || 0) + expense;
+        totalExpenses += expense;
+      }
     });
-    totalExpenses = totalExpenses.toFixed(2);
-    return {totalExpenses, categories, categoryExpenses};
+  });
+  console.log(categoryExpenses);
+  console.log(totalExpenses.toFixed(2));
+  return { totalExpenses, categoryExpenses };
 }

@@ -4,7 +4,7 @@ import Cards from "./Cards/Cards";
 import PieChart from "./PieChart";
 import CalculateExpenses from "../calculationFunctions/CalculateExpenses";
 import FileImport from "./FileDragDrop/FileImport";
-export default function CSVFileImport (){
+export default function CSVFileImport(){
 
 const [file, setFile] = useState();
 const [totalExpenses, setTotalExpenses] = useState(0.00);
@@ -13,6 +13,7 @@ const [categoryExpenses, setCategoryExpenses] = useState();
 const [render, setRender] = useState(false);
 
   const handleOnChange = (e) => {
+      console.log(e.target.files[0])
       setFile(e.target.files[0]);
   };
   const handleOnSubmit = (e) => {
