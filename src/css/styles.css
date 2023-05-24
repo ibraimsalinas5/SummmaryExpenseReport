@@ -1,0 +1,114 @@
+*{
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+}
+
+.main-area{
+    min-height: 100vh;
+    width: 100%;
+    background: #F7E9DC;
+    display:  -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.expenses, .wages{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 1.4rem;
+    border-radius: 1rem;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.expenses {
+    background: #EC755D;
+}
+
+.wages {
+    background: #8cf686
+}
+
+p{
+    font-size: 0.8rem;
+    color: #ffffffbd;
+    margin-bottom: 3px;
+}
+
+h1{
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.card-area .bottom{
+    background: #FFFCF7;
+    padding: 1.4rem;
+    border-radius: 1rem;
+}
+
+.main h1{
+    font-size: 1.5rem;
+    margin-bottom: 01.5rem;
+}
+
+.main hr{
+    margin: 1rem;
+    background: #d0c9c94a;
+    height: 2px;
+    border: 0;
+}
+
+
+.main .bottom-section{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.bottom-section .left p{
+    color: #adadad;
+    font-size: 0.8rem;
+    letter-spacing: 0.3px;
+}
+
+.bottom-section .left h2{
+    font-size: 2rem;
+}
+
+.bottom-section .right{
+    margin-bottom: 5px;
+}
+
+.bottom-section .right p.percent{
+    color: #000;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: right;
+
+}
+
+.bottom-section .right p.last-month{
+    color: #adadad;
+    letter-spacing: 0.3px;
+    font-size: 1rem;
+
+}
