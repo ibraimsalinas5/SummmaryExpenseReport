@@ -67,7 +67,7 @@ export default function FileImport() {
       onDragEnter={handleDrag}
       onSubmit={handleSubmit}
     >
-      <input type="file" id="input-file-upload" multiple={true} />
+      <input type="file" id="input-file-upload" multiple={false} />
       <label
         id="label-file-upload"
         htmlFor="input-file-upload"
