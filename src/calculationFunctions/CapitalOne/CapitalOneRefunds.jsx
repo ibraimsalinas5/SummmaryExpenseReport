@@ -1,7 +1,7 @@
 
 
 export default function CapitalOneRefunds(line, refund){
-    if(!line.Description.includes("PAYMENT")){
+    if(!line.Category.includes("Payment")){
         return refund;
     }
     return 0.00;

@@ -1,10 +1,17 @@
 import React from "react";
 import { useState } from "react";
 import Papa from "papaparse";
-import CalculateExpenses from "../../calculationFunctions/CalculateExpenses";
 import ReadFile from "./ReadFile";
+import CapOne from "../../calculationFunctions/CapitalOne/CapOne";
 
-export default function FileImport() {
+export default function FileImport({
+  addTotalExpenses,
+  totalExpenses,
+  addIncome,
+  income,
+  addCategoryExpenses,
+  changeRender,
+}) {
   const [dragActive, setDragActive] = useState(false);
   const [files, addFiles] = useState([]);
 
@@ -21,10 +28,10 @@ export default function FileImport() {
   let handleDrop = (e) => {
     e.preventDefault();
     setDragActive(false);
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+    if (e.dataTransfer.files[0]) {
       ReadFile(e.dataTransfer.files[0])
         .then((result) => {
-          addFiles([...files, result]);
+          addFiles([...files, { content: result[0], bank: result[1] }]);
         })
         .catch((error) => {
           console.error(error);
@@ -34,12 +41,11 @@ export default function FileImport() {
 
   let handleSubmit = (e) => {
     e.preventDefault();
-    let filesData = [];
     Promise.all(
       [...files].map(
         (file) =>
           new Promise((resolve, reject) =>
-            Papa.parse(file, {
+            Papa.parse(file.content, {
               header: true,
               skipEmptyLines: true,
               complete: resolve, // Resolve each promise
@@ -49,14 +55,19 @@ export default function FileImport() {
       )
     )
       .then((results) => {
+        let i = 0;
         results.forEach((result) => {
-          filesData.push(result);
+          let data;
+          if (files[i].bank.includes("Capital")) {
+            data = CapOne(result);
+          } else if (files[i].bank.includes("Chase")) {
+          }
+          addTotalExpenses(data.totalExpenses, totalExpenses);
+          addCategoryExpenses(data.categoryExpenses);
+          addIncome(data.totalWages);
+          i++;
         });
-        let data = CalculateExpenses(filesData);
-        //setTotalExpenses(data.totalExpenses);
-        //setCategories(data.categories);
-        //setCategoryExpenses(data.categoryExpenses);
-        //setRender(true);
+        changeRender(true);
       })
       .catch((err) => console.log("Something went wrong:", err));
   };
@@ -76,7 +87,7 @@ export default function FileImport() {
         <div>
           <p>Drag and drop your files here</p>
           <button className="upload-button" onSubmit={handleSubmit}>
-            Click To Calculate expense
+            Click here to get summary
           </button>
         </div>
       </label>

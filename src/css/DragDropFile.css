@@ -1,6 +1,6 @@
 #form-file-upload {
     height: 16rem;
-    width: 28rem;
+    width: 31rem;
     max-width: 100%;
     margin-top: 1rem;
     text-align: center;
@@ -38,6 +38,16 @@
     left: 0px;
   }
   
+  p{
+      cursor: pointer;
+      padding: 0.25rem;
+      font-size: 1rem;
+      border: none;
+      font-family: 'Oswald', sans-serif;
+      background-color: transparent;
+      color: #000;
+  }
+
   .upload-button {
     cursor: pointer;
     padding: 0.25rem;

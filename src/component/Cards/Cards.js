@@ -1,14 +1,12 @@
 import TotalExepenseCard from "./TotalExpenseCard";
-import WagesCard from "./WagesCard";
+import IncomeCard from "./IncomeCard";
 
-
-
-export default function Cards({totalExpenses}) {
-    return(
-      <div class = "cards">
-       <TotalExepenseCard  totalExpenses={totalExpenses}/> 
-       <WagesCard totalExpenses = {totalExpenses} />
-      </div>
-    )
-
+export default function Cards({ totalExpenses, income }) {
+  console.log(income);
+  return (
+    <div class="cards">
+      <TotalExepenseCard totalExpenses={totalExpenses} />
+      <IncomeCard income={income} />
+    </div>
+  );
 }
