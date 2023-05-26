@@ -8,7 +8,7 @@ export default function CategoryRules(TransactionDescription) {
     TransactionDescription.includes("ESPRESSO") ||
     TransactionDescription.includes("STARBUCKS")
   ) {
-    return "Food & Drink";
+    return "Dining";
   } else if (
     TransactionDescription.includes("TARGET") ||
     TransactionDescription.includes("CVS PHARMACY")

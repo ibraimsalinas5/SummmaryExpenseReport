@@ -3,17 +3,18 @@ import { useState } from "react";
 import Papa from "papaparse";
 import ReadFile from "./ReadFile";
 import CapOne from "../../calculationFunctions/CapitalOne/CapOne";
+import Chase from "../../calculationFunctions/Chase/Chase";
+import CombineCategoryExpense from "../../calculationFunctions/HelperFunctions/CombineCategoryExpenses";
 
 export default function FileImport({
   addTotalExpenses,
-  totalExpenses,
   addIncome,
-  income,
   addCategoryExpenses,
   changeRender,
 }) {
   const [dragActive, setDragActive] = useState(false);
   const [files, addFiles] = useState([]);
+  let data = [];
 
   let handleDrag = (e) => {
     e.preventDefault();
@@ -28,14 +29,16 @@ export default function FileImport({
   let handleDrop = (e) => {
     e.preventDefault();
     setDragActive(false);
-    if (e.dataTransfer.files[0]) {
-      ReadFile(e.dataTransfer.files[0])
-        .then((result) => {
-          addFiles([...files, { content: result[0], bank: result[1] }]);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+    if (e.dataTransfer.files) {
+      [...e.dataTransfer.files].map((file) =>
+        ReadFile(file)
+          .then((result) => {
+            addFiles([...files, { content: result[0], bank: result[1] }]);
+          })
+          .catch((error) => {
+            console.error(error);
+          })
+      );
     }
   };
 
@@ -56,17 +59,27 @@ export default function FileImport({
     )
       .then((results) => {
         let i = 0;
+        let totalExpense = 0.0;
+        let totalIncome = 0.0;
+        let totalCategories = [];
         results.forEach((result) => {
-          let data;
+          console.log(files[i].bank);
           if (files[i].bank.includes("Capital")) {
-            data = CapOne(result);
+            data.push(CapOne(result));
           } else if (files[i].bank.includes("Chase")) {
+            data.push(Chase(result));
           }
-          addTotalExpenses(data.totalExpenses, totalExpenses);
-          addCategoryExpenses(data.categoryExpenses);
-          addIncome(data.totalWages);
           i++;
         });
+        data.forEach((file) => {
+          totalExpense += file.totalExpenses;
+          totalIncome += file.totalWages;
+          totalCategories.push(file.categoryExpenses);
+        });
+        addTotalExpenses(totalExpense);
+        addIncome(totalIncome);
+        let combineCategoryExpense = CombineCategoryExpense(totalCategories);
+        addCategoryExpenses(combineCategoryExpense);
         changeRender(true);
       })
       .catch((err) => console.log("Something went wrong:", err));
@@ -78,7 +91,7 @@ export default function FileImport({
       onDragEnter={handleDrag}
       onSubmit={handleSubmit}
     >
-      <input type="file" id="input-file-upload" multiple={false} />
+      <input type="file" id="input-file-upload" multiple={true} />
       <label
         id="label-file-upload"
         htmlFor="input-file-upload"

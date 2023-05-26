@@ -1,3 +1,4 @@
+//LOOK TO COMBINE WITH CapitalOneRefunds
 export default function CapitalOneIncome(description, amount) {
   //WE DONT INCLUDE TRANSFERS
   if (!description.includes("Payment")) {
