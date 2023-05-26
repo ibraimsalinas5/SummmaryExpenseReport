@@ -12,9 +12,8 @@ export default function SummaryReport() {
     setTotalExpenses(expense);
   };
 
-  let addIncome = (income) => {
-    console.log(income);
-    setIncome(income);
+  let addIncome = (calulatedIncome) => {
+    setIncome(calulatedIncome);
   };
 
   let addCategoryExpenses = (expense) => {
@@ -31,9 +30,7 @@ export default function SummaryReport() {
       {render ? <PieChart categoryExpenses={categoryExpenses} /> : ""}
       <FileImport
         addTotalExpenses={addExpenses}
-        totalExpenses={totalExpenses}
         addIncome={addIncome}
-        income={income}
         addCategoryExpenses={addCategoryExpenses}
         changeRender={changeRender}
       />
