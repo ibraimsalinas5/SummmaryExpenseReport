@@ -11,6 +11,7 @@ export default function FileImport({
   addIncome,
   addCategoryExpenses,
   changeRender,
+  addCsvData,
 }) {
   const [dragActive, setDragActive] = useState(false);
   const [files, addFiles] = useState([]);
@@ -62,6 +63,7 @@ export default function FileImport({
         let totalExpense = 0.0;
         let totalIncome = 0.0;
         let totalCategories = [];
+        let csvData = [];
         results.forEach((result) => {
           console.log(files[i].bank);
           if (files[i].bank.includes("Capital")) {
@@ -69,6 +71,7 @@ export default function FileImport({
           } else if (files[i].bank.includes("Chase")) {
             data.push(Chase(result));
           }
+          csvData.push(result.data);
           i++;
         });
         data.forEach((file) => {
@@ -80,6 +83,7 @@ export default function FileImport({
         addIncome(totalIncome);
         let combineCategoryExpense = CombineCategoryExpense(totalCategories);
         addCategoryExpenses(combineCategoryExpense);
+        addCsvData(csvData);
         changeRender(true);
       })
       .catch((err) => console.log("Something went wrong:", err));
